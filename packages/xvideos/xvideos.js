@@ -6,6 +6,7 @@ if(Meteor.isServer){
                 var rs = Async.runSync(function(done){
                     var x = new Xray();
                     x(url,{
+                        title : '#main > h2',
                         flashvars : '#flash-player-embed@flashvars'
                     })(function(err, obj){
                         if(err) throw new Meteor.Error(err);
@@ -15,6 +16,7 @@ if(Meteor.isServer){
                                 tpl = _.template('<%=flv_url%>&ri=<%=ri%>&rs=<%=rs%>&h=<%=h%>');
                             var result = {
                                 videoId : params.id_video,
+                                title : obj.title,
                                 url : tpl({
                                     flv_url : params.flv_url,
                                     ri : params.ri,

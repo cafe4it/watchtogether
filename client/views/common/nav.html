@@ -4,9 +4,9 @@
             <a class="pure-menu-heading" href="">Photo Gallery</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Blog</a></li>
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
+                <li class="pure-menu-item pure-menu-selected"><a href="{{pathFor 'home'}}" class="pure-menu-link {{isActiveRoute 'home'}}">Home</a></li>
+                <li class="pure-menu-item"><a href="{{pathFor 'room_home'}}" class="pure-menu-link {{isActiveRoute 'room_home'}}">Room</a></li>
+                <li class="pure-menu-item"><a href="{{pathFor 'room_create'}}" class="pure-menu-link {{isActiveRoute 'room_create'}}">Create Room</a></li>
             </ul>
         </div>
     </div>
