@@ -10,24 +10,38 @@
     {{> video}}
 </body>
 
+<template name="video1">
+    <video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="268"
+           data-setup='{}'>
+        <source src="http://www.mediacollege.com/video-gallery/testclips/20051210-w50s.flv" type='video/x-flv'>
+    </video>
+
+</template>
+
 <template name="hello">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
 </template>
 
 <template name="video">
-    <p><input type="text" id="txtUrl" value="http://www.xvideos.com/video12858819/threesomed_asian_tramp_gets_hardcore_http_japan-adult.com_xvid"/></p>
+    <p><input type="text" id="txtUrl" value=""/></p>
 
     <p><button id="btnLoadVideo">Load Video</button></p>
 
     <p>
+    <div id="videoTag"></div>
     {{#if hasVideo}}
         <br/>
-        {{#with video}}
 
-        {{/with}}
     {{else}}
         <span>Loading....</span>
     {{/if}}
     </p>
+</template>
+
+<template name="videoTag">
+    <video id="video_{{videoId}}" autoplay class="video-js vjs-default-skin vjs-controls-enabled vjs-has-started vjs-paused vjs-ended vjs-user-inactive" controls preload="auto" width="640" height="268"
+           data-setup='{}'>
+        <source src="{{url}}" type='video/x-flv'>
+    </video>
 </template>

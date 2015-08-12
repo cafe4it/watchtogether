@@ -12,3 +12,8 @@ meteorhacks:async
 wt:xvideos
 wt:uri-js
 reactive-var
+wt:videojs
+raix:eventemitter
+dispatch:blaze-emitter
+kadira:flow-router
+kadira:blaze-layout
