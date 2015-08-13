@@ -1,0 +1,26 @@
+.playlist-buttons {
+
+}
+
+#room_main {
+    min-width: 1155px;
+}
+
+.player-container{
+    min-width: 588px;
+    min-height: 476px;
+}
+
+.chat-container {
+
+}
+
+.chat-body{
+    overflow-y : scroll;
+    overflow-wrap: break-word;
+    height: 485px;
+}
+
+.chat-footer{
+    margin-top: 10px;
+}

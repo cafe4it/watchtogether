@@ -25,6 +25,7 @@ Package.onUse(function (api) {
     api.addFiles('server/000_methods.js',['server']);
     api.addFiles('server/001_security.js',['server']);
     api.addFiles('server/001_publications.js',['server']);
+    api.addFiles('client/stylesheets/room.css',['client']);
     api.addFiles('client/views/room_home.html',['client']);
     api.addFiles('client/views/room_home.js',['client']);
     api.addFiles('client/views/room_create.html',['client']);

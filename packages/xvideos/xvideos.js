@@ -23,7 +23,9 @@ if(Meteor.isServer){
                                     rs : params.rs,
                                     h : params.h
                                 }),
-                                thumbnail : params.url_bigthumb
+                                thumbnail : params.url_bigthumb,
+                                type  : 'video/x-flv',
+                                source : 'XVIDEOS'
                             }
 
                             done(null,result);
