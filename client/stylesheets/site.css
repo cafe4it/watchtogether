@@ -1,14 +1,92 @@
-.loading-data {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1em;
-    padding-right: 1em;
-    max-width: 768px;
-    text-align: center;
-    vertical-align: middle;
+body > .launch.button {
+    display: block;
 }
 
-.loading-data .message {
-    width: 100%;
-    letter-spacing: normal !important;
+
+/*--------------
+   Fixed Menu
+---------------*/
+
+body .main.menu .title.item b {
+    margin-right: 0.5em;
+}
+body .fixed.main.menu .launch.item {
+    display: block;
+}
+body .fixed.main.menu .search .icon {
+    opacity: 0.9;
+}
+
+body > .fixed.launch.button {
+    display: none;
+    position: fixed;
+    top: 2.5em;
+    left: 0px;
+
+    width: 55px;
+    height: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-transition:
+    0.3s width ease,
+    0.5s transform ease
+;
+    -moz-transition:
+    0.3s width ease,
+    0.5s transform ease
+;
+    -o-transition:
+    0.3s width ease,
+    0.5s transform ease
+;
+    -ms-transition:
+    0.3s width ease,
+    0.5s transform ease
+;
+    transition:
+    0.3s width ease,
+    0.5s transform ease
+;
+}
+
+body .launch.button .icon {
+    margin-left: 0px;
+}
+
+
+body .fixed.launch.button .text {
+    position: absolute;
+    white-space: nowrap;
+    top: auto;
+    left: 54px;
+    opacity: 0;
+    -webkit-transition:
+    0.3s opacity 0.3s
+;
+    -moz-transition:
+    0.3s opacity 0.3s
+;
+    -o-transition:
+    0.3s opacity 0.3s
+;
+    -ms-transition:
+    0.3s opacity 0.3s
+;
+    transition:
+    0.3s opacity 0.3s
+;
+}
+body .fixed.launch.button:hover {
+    width: 130px;
+}
+body .fixed.launch.button:hover .text {
+    opacity: 1;
+}
+
+/* Position Change */
+body.pushable.left.overlay .fixed.launch.button {
+    transform: translate3d(0, 0, 0);
+}
+body.pushable.overlay.left.pushed .fixed.launch.button {
+    transform: translate3d(260px, 0, 0);
 }

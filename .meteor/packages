@@ -15,10 +15,11 @@ raix:eventemitter
 dispatch:blaze-emitter
 kadira:flow-router
 kadira:blaze-layout
-wt:purecss
 random
 wt:room
 arillo:flow-router-helpers
 accounts-base
 accounts-password
 ostrio:cookies
+semantic:ui
+flemay:less-autoprefixer

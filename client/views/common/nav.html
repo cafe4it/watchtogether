@@ -1,13 +1,15 @@
 <template name="nav">
-    <div class="header pure-u">
-        <div class="pure-menu pure-menu-horizontal">
-            <a class="pure-menu-heading" href="">Photo Gallery</a>
-
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item pure-menu-selected"><a href="{{pathFor 'home'}}" class="pure-menu-link {{isActiveRoute 'home'}}">Home</a></li>
-                <li class="pure-menu-item"><a href="{{pathFor 'room_home'}}" class="pure-menu-link {{isActiveRoute 'room_home'}}">Room</a></li>
-                <li class="pure-menu-item"><a href="{{pathFor 'room_create'}}" class="pure-menu-link {{isActiveRoute 'room_create'}}">Create Room</a></li>
-            </ul>
-        </div>
+    <div class="ui sidebar inverted vertical menu">
+        <a href="{{pathFor 'home'}}" class="item">Home</a>
+        {{#if hasOwnRoom}}
+        <a href="{{pathFor 'room_home' id=roomId}}" class="item">Room</a>
+        {{else}}
+            <a href="{{pathFor 'room_create'}}" class="item">Create a Room</a>
+        {{/if}}
     </div>
+    <div class="ui black big launch right attached fixed button">
+        <i class="content icon"></i>
+        <span class="text">Menu</span>
+    </div>
+
 </template>

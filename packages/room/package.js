@@ -21,7 +21,10 @@ Package.onUse(function (api) {
     api.use('arillo:flow-router-helpers',['client']);
 
     api.addFiles('lib/000_routes.js',['server','client']);
+    api.addFiles('lib/001_schemas.js',['server','client']);
     api.addFiles('server/000_methods.js',['server']);
+    api.addFiles('server/001_security.js',['server']);
+    api.addFiles('server/001_publications.js',['server']);
     api.addFiles('client/views/room_home.html',['client']);
     api.addFiles('client/views/room_home.js',['client']);
     api.addFiles('client/views/room_create.html',['client']);

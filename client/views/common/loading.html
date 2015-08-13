@@ -1,9 +1,14 @@
 <template name="loading_data">
-    <div class="pure-g">
-        <div class="loading-data">
-            <img src="/loading.gif" alt="loading...." class="pure-img"/>
+    <div class="ui two column centered grid">
+        <div class="column aligned">
+            <img src="/loading.gif" alt="loading...." class="ui centered medium image"/>
             {{#if message}}
-                <span class="message">{{message}}</span>
+                <div class="ui active progress" data-percent="100">
+                    <div class="bar" style="transition-duration: 300ms; width: 100%;">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="label">{{message}}</div>
+                </div>
             {{/if}}
         </div>
     </div>
