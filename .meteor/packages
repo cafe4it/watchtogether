@@ -26,3 +26,4 @@ flemay:less-autoprefixer
 jquery
 anti:fake
 juliancwirko:s-alert
+dburles:collection-helpers

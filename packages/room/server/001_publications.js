@@ -7,7 +7,12 @@ if (Meteor.isServer) {
         return RoomsGuest.find({_id: id});
     });
 
+    Meteor.publish('guest_byParams', function (params) {
+        return RoomsGuest.find(params);
+    });
+
     Meteor.publish('messages_byRoom', function (roomId) {
+        Meteor._sleepForMs(2000);
         return RoomMessages.find({roomId: roomId}, {limit: 50});
     })
 }

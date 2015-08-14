@@ -1,11 +1,19 @@
 <template name="chatbox">
     <div class="chat-container ui segment">
+
         <div class="chat-body">
+        {{#if Template.subscriptionsReady}}
             <div class="ui small feed">
                 {{#each messages}}
                     {{> chat_log_msg}}
                 {{/each}}
             </div>
+        {{else}}
+            <div class="ui active inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <p></p>
+        {{/if}}
         </div>
         <div class="chat-footer">
             <div class="ui fluid icon input">
@@ -20,7 +28,11 @@
     <div class="event">
         <div class="content">
             <div class="summary">
-                {{message}}
+                {{#if getUser.isUser}}
+                <a href="#{{userId}}"><a class="ui {{getUser.color}} empty circular label"></a> {{getUser.fullName}}:</a>&nbsp;{{message}}
+                {{else}}
+                <b><a class="ui {{getUser.color}} empty circular label"></a> {{getUser.fullName}}:</b>&nbsp;{{message}}
+                {{/if}}
             </div>
         </div>
     </div>

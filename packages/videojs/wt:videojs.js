@@ -31,4 +31,4 @@ Meteor.setTimeout(function(){
     script.src = scripts[1];
 
     head.appendChild(script);
-},100)
+},300)

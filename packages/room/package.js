@@ -21,6 +21,7 @@ Package.onUse(function (api) {
     api.use('kadira:blaze-layout',['client']);
     api.use('arillo:flow-router-helpers',['client']);
     api.use('juliancwirko:s-alert',['client']);
+    api.use('dburles:collection-helpers',['client','server']);
 
     api.addFiles('lib/000_routes.js',['server','client']);
     api.addFiles('lib/001_schemas.js',['server','client']);

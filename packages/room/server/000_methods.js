@@ -5,6 +5,7 @@ if (Meteor.isServer) {
                 Meteor._sleepForMs(2000);
                 var userId = Meteor.call('createGuestUser');
                 var roomId = Rooms.insert({
+                    name : 'Temporary Room',
                     userId: userId,
                     updatedAt: new Date
                 });
