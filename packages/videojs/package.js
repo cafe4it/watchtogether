@@ -1,6 +1,6 @@
 Package.describe({
     name: 'wt:videojs',
-    version: '0.0.4',
+    version: '0.0.6',
     // Brief, one-line summary of the package.
     summary: '',
     // URL to the Git repository containing the source code for this package.
@@ -12,6 +12,7 @@ Package.describe({
 
 Package.onUse(function (api) {
     api.versionsFrom('1.1.0.3');
+    api.use('jquery',['client'])
+    api.use('underscore',['client'])
     api.addFiles('wt:videojs.js', 'client');
-    api.addFiles('vjs-default-skin.less', 'client');
 });

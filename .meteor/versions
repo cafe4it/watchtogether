@@ -1,5 +1,6 @@
 accounts-base@1.2.0
 accounts-password@1.1.1
+anti:fake@0.4.1
 arillo:flow-router-helpers@0.4.1
 autoupdate@1.2.1
 base64@1.0.3
@@ -25,6 +26,7 @@ http@1.1.0
 id-map@1.0.3
 jquery@1.11.3_2
 json@1.0.3
+juliancwirko:s-alert@2.4.1
 kadira:blaze-layout@2.0.0
 kadira:flow-router@2.1.1
 launch-screen@1.0.2
@@ -66,7 +68,7 @@ webapp@1.2.0
 webapp-hashing@1.0.3
 wt:room@0.0.1
 wt:uri-js@0.0.1
-wt:videojs@0.0.4
+wt:videojs@0.0.6
 wt:x-ray@0.0.1
 wt:xvideos@0.0.1
 zimme:active-route@2.3.0

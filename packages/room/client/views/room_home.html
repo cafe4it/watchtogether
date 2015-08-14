@@ -1,13 +1,17 @@
 <template name="room_home">
     <div id="room_main" class="ui grid container">
-        <div class="sixteen wide column"></div>
+        <div class="sixteen wide column">
+            {{> room_menu roomId=room.id}}
+        </div>
         <div class="nine wide column">
             <div class="player-container">
-                <h3 class="ui header">Amber Stone - Prego Firebush Creampie</h3>
-                <div class="ui hidden divider"></div>
-                <video id="my_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="488"
-                       data-setup='{}' poster="">
-                    <source src="" type='video/x-flv'>
+                <video id="example_video_1" class="video-js vjs-default-skin"
+                       controls preload="auto" width="99.9%" height="488"
+                       poster="http://video-js.zencoder.com/oceans-clip.png"
+                       data-setup='{"controls":true}'>
+                    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+                    <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+                    <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
                 </video>
             </div>
             <div class="ui divider"></div>
@@ -17,102 +21,13 @@
                     <a class="bug popup icon button item"><i class="save icon"></i></a>
                 </div>
                 <div class="ui right floated main menu">
-                    <a href="#" class="bug popup icon item" data-content="Setting Room"><i class="setting icon"></i></a>
-                    <a href="#" class="bug popup icon item" data-content="Help detail"><i class="help icon"></i></a>
-                </div>
-                <div class="ui right floated main menu">
                     <a class="bug popup icon item"><i class="thumbs up icon"></i></a>
                     <a class="bug popup icon item"><i class="thumbs down icon"></i></a>
                 </div>
             </div>
         </div>
         <div class="seven wide column">
-            <div class="ui small basic icon buttons">
-                <button class="ui button"><i class="users icon"></i></button>
-                <button class="ui button"><i class="download icon"></i></button>
-            </div>
-            <div class="chat-container ui segment">
-                <div class="chat-body">
-                    <div class="ui small feed">
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Elliot Fu</a> added <a>Jenny Hess</a> as a friend
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Stevie Feliciano</a> added <a>Elliot Fu</a> as a friend
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Helen Troy</a> added <a>Christian Rocha</a> as a friend
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <a>Christian Rocha</a> signed up for the  site.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-footer">
-                    <div class="ui fluid icon input">
-                        <input type="text" placeholder="Search a very wide input...">
-                        <i class="terminal icon"></i>
-                    </div>
-                </div>
-            </div>
+            {{> chatbox roomId=room.id}}
         </div>
     </div>
 </template>

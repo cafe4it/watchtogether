@@ -12,6 +12,7 @@ Package.describe({
 
 Package.onUse(function (api) {
     api.versionsFrom('1.1.0.3');
+    api.use('anti:fake',['server']);
     api.use('templating',['client']);
     api.use('random',['server','client']);
     api.use('underscore',['server','client']);
@@ -19,6 +20,7 @@ Package.onUse(function (api) {
     api.use('kadira:flow-router',['server','client']);
     api.use('kadira:blaze-layout',['client']);
     api.use('arillo:flow-router-helpers',['client']);
+    api.use('juliancwirko:s-alert',['client']);
 
     api.addFiles('lib/000_routes.js',['server','client']);
     api.addFiles('lib/001_schemas.js',['server','client']);
@@ -28,12 +30,10 @@ Package.onUse(function (api) {
     api.addFiles('client/stylesheets/room.css',['client']);
     api.addFiles('client/views/room_home.html',['client']);
     api.addFiles('client/views/room_home.js',['client']);
+    api.addFiles('client/views/room_menu.html',['client']);
+    api.addFiles('client/views/room_menu.js',['client']);
+    api.addFiles('client/views/chatbox.html',['client']);
+    api.addFiles('client/views/chatbox.js',['client']);
     api.addFiles('client/views/room_create.html',['client']);
     api.addFiles('client/views/room_create.js',['client']);
-});
-
-Package.onTest(function (api) {
-    api.use('tinytest');
-    api.use('wt:room');
-    api.addFiles('room-tests.js');
 });

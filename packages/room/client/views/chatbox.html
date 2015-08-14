@@ -1,0 +1,27 @@
+<template name="chatbox">
+    <div class="chat-container ui segment">
+        <div class="chat-body">
+            <div class="ui small feed">
+                {{#each messages}}
+                    {{> chat_log_msg}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="chat-footer">
+            <div class="ui fluid icon input">
+                <input type="text" placeholder="Share your think..." id="txtTextMsg">
+                <i class="terminal icon"></i>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="chat_log_msg">
+    <div class="event">
+        <div class="content">
+            <div class="summary">
+                {{message}}
+            </div>
+        </div>
+    </div>
+</template>

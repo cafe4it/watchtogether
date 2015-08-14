@@ -3,10 +3,10 @@
  */
 Template.nav.helpers({
     hasOwnRoom : function () {
-        return (Meteor.cookie.get('1hand_roomId'));
+        return (Meteor.cookie.get('tubechat_roomId'));
     },
     roomId : function () {
-        return Meteor.cookie.get('1hand_roomId')
+        return Meteor.cookie.get('tubechat_roomId')
     }
 });
 

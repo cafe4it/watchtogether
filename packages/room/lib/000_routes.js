@@ -18,7 +18,7 @@ roomRoutes.route('/:id',{
 
 roomRoutes.route('/',{
     triggersEnter : [function(context, redirect) {
-        var roomId = Meteor.cookie.get('1hand_roomId'),
+        var roomId = Meteor.cookie.get('tubechat_roomId'),
             path = FlowRouter.path('room_home',{id : roomId});
         redirect(path);
     }]

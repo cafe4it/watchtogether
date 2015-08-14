@@ -1,0 +1,33 @@
+<template name="room_menu">
+    <div class="ui menu">
+        <div class="header item">
+            Temporary Room
+        </div>
+        <div class="right menu">
+            <a class="item" id="btnChangeYourName"><i class="write icon"></i>&nbsp;Change your Name</a>
+            <a class="item" id="btnInviteFriends"><i class="share alternate square icon"></i>&nbsp;Invite Friends</a>
+            <a class="item" id="btnRoomSettings"><i class="setting icon"></i>&nbsp;Room Settings</a>
+        </div>
+    </div>
+    {{> modal_changeYourName fullName=user.fullName}}
+</template>
+
+<template name="modal_changeYourName">
+    <div id="modal_changeYourName" class="ui small modal">
+        <div class="header">Change your Name</div>
+        <div class="content">
+            <span>If you are an unregistered user, you can change your name here. Please note that the only way to secure a name for yourself is registering it. Any user will be able to use your name at a later time if you choose to skip registration.</span>
+            <div class="ui divider"></div>
+            <div class="ui labeled fluid input">
+                <div class="ui label">
+                    Name
+                </div>
+                <input type="text" placeholder="{{fullName}}" value="{{fullName}}" class="txtFullName">
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">Close</div>
+            <button class="ui primary approve button">Save Name</button>
+        </div>
+    </div>
+</template>

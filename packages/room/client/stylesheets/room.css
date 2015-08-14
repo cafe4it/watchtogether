@@ -11,6 +11,10 @@
     min-height: 476px;
 }
 
+.player-container video{
+    overflow: hidden;
+}
+
 .chat-container {
 
 }
