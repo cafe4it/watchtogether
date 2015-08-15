@@ -6,7 +6,14 @@ Template.room_home.onCreated(function(){
             FlowRouter.go(FlowRouter.path('room_create', {}, {returnPath: FlowRouter.getParam('id')}))
         }
     })
-})
+});
+
+Template.room_home.rendered = function(){
+    $(document).ready(function(){
+        $('#modal_playlist')
+            .modal('attach events', '#btnPlaylist', 'show');
+    })
+}
 
 Template.room_home.helpers({
     room : function(){

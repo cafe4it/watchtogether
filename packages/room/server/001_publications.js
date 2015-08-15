@@ -12,7 +12,7 @@ if (Meteor.isServer) {
     });
 
     Meteor.publish('messages_byRoom', function (roomId) {
-        Meteor._sleepForMs(2000);
-        return RoomMessages.find({roomId: roomId}, {limit: 50});
+        //Meteor._sleepForMs(2000);
+        return RoomMessages.find({roomId: roomId}, {sort : {updatedAt : -1},limit: 50});
     })
 }

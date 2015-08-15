@@ -13,7 +13,9 @@ Package.describe({
 Package.onUse(function (api) {
     api.versionsFrom('1.1.0.3');
     api.use('anti:fake',['server']);
+    api.use('djedi:sanitize-html',['server']);
     api.use('templating',['client']);
+    api.use('tracker',['client']);
     api.use('random',['server','client']);
     api.use('underscore',['server','client']);
     api.use('ostrio:cookies',['server','client']);
@@ -31,6 +33,8 @@ Package.onUse(function (api) {
     api.addFiles('client/stylesheets/room.css',['client']);
     api.addFiles('client/views/room_home.html',['client']);
     api.addFiles('client/views/room_home.js',['client']);
+    api.addFiles('client/views/modals/modal_playlist.html',['client']);
+    api.addFiles('client/views/modals/modal_playlist.js',['client']);
     api.addFiles('client/views/room_menu.html',['client']);
     api.addFiles('client/views/room_menu.js',['client']);
     api.addFiles('client/views/chatbox.html',['client']);

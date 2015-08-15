@@ -10,14 +10,11 @@ roomRoutes.route('/create', {
 });
 
 roomRoutes.route('/:id', {
-/*    triggersEnter: [function (context, redirect) {
-        var userId =Meteor.cookie.get('tubechat_userId');
-        console.log(userId)
-        if (!userId) {
-            redirect(FlowRouter.path('room_create', {}, {returnPath: FlowRouter.getParam('id')}));
-        }
-    }],*/
     name: 'room_home',
+    subscriptions : function(p, q){
+        this.register('getRoom', Meteor.subscribe('room_byId', p.id));
+        this.register('getMessages', Meteor.subscribe('messages_byRoom', p.id));
+    },
     action: function (q, p) {
         BlazeLayout.render('defaultLayout', {top: 'nav', main: 'room_home'});
     }

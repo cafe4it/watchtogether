@@ -14,11 +14,16 @@ RoomMessages.helpers({
             }
         }else{
             user = RoomsGuest.findOne({_id : this.userId});
-            return {
-                fullName : user.fullName,
-                isUser : false,
-                color : (user._id === room.userId) ? 'red' : 'grey'
+            if(user){
+                return {
+                    fullName : user.fullName,
+                    isUser : false,
+                    color : (user._id === room.userId) ? 'red' : 'grey'
+                }
             }
         }
+    },
+    decodeMessage : function () {
+        return URI.decode(this.message);
     }
 });

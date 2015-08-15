@@ -1,61 +1,81 @@
-Template.chatbox.onCreated(function(){
+Template.chatbox.onCreated(function () {
     var self = this;
     self.user = new ReactiveVar();
     self.messages = new ReactiveVar();
-    self.autorun(function(c){
+    self.chatBodyHeight = new ReactiveVar();
+    self.autorun(function (c) {
+        //console.log(c.firstRun, self.isFirstLoad.get())
         var roomId = self.data.roomId || FlowRouter.getParam('id');
-        var msgSubs = self.subscribe('messages_byRoom', roomId),
-            roomSubs = self.subscribe('room_byId',roomId);
-        if(msgSubs.ready() && roomSubs.ready()){
-            var messages = RoomMessages.find({roomId : roomId},{limit : 50}).fetch() || [];
+
+        var msgSubs = FlowRouter.subsReady("getMessages"),
+            roomSubs = FlowRouter.subsReady("getRoom");
+        if (msgSubs && roomSubs) {
+            var messages = RoomMessages.find({roomId: roomId}, {sort: {updatedAt: 1}});
+            messages.observe({
+                added : function(){
+                    setScroll(self);
+                }
+            });
+
             self.messages.set(messages);
+
+            var messageHasUserIds = _.map(self.messages.get().fetch(), function (m) {
+                return m.userId;
+            });
+
+            self.subscribe('guest_byParams', {_id: {$in: messageHasUserIds}});
+
         }
 
-        var messageHasUserIds = _.map(self.messages.get(),function(m){
-            return m.userId;
-        });
-
-        self.subscribe('guest_byParams',{_id : {$in : messageHasUserIds}});
-        /*if(Meteor.userId()){
-            self.user.set({
-                _id : Meteor.userId(),
-                fullName : Meteor.user().profile.fullName
-            });
-        }else{
-            var guestId = Meteor.cookie.get('tubechat_userId');
-
-            var guestSubs = self.subscribe('guest_byId',guestId);
-            if(guestSubs.ready()){
-                var guest = RoomsGuest.findOne({_id : guestId});
-                self.user.set(guest);
-            }
-        }*/
-
-
-    })
+    });
 });
 
+Template.chatbox.rendered = function () {
+    $(document).ready(function () {
+        var self = Template.instance();
+
+        self.autorun(function (c) {
+            autoScroll(self);
+        })
+    })
+}
+
+
 Template.chatbox.helpers({
-    user : function(){
-        return Template.instance().user.get();
-    },
-    messages : function(){
+    messages: function () {
         return Template.instance().messages.get();
     }
 });
 
 Template.chatbox.events({
-    'keyup #txtTextMsg' : function(e,t){
+    'keyup #txtTextMsg': function (e, t) {
         e.preventDefault();
-        if(e.keyCode === 13){
+        if (e.keyCode === 13) {
             var msg = e.target.value || $('#txtTextMsg').val(),
                 roomId = t.data.roomId || FlowRouter.getParam('id'),
                 userId = Meteor.cookie.get('tubechat_userId') || Meteor.userId();
-            Meteor.call('sendMessage',roomId, userId, msg, function(e, r){
-                if(r === 'SUCCESS'){
+            Meteor.call('sendMessage', roomId, userId, msg, function (err, r) {
+                if (r === 'SUCCESS') {
+                    e.target.value = '';
                     $('#txtTextMsg').val('');
+                    setScroll(t)
                 }
             })
         }
     }
-})
+});
+
+function setScroll(t) {
+    var t = t || Template.instance();
+    var height = $('.chat-container .chat-body')[0].scrollHeight;
+    t.chatBodyHeight.set(height);
+}
+
+function autoScroll(t) {
+    var t = t || Template.instance();
+    var scrollHeight = t.chatBodyHeight.get();
+    if (!scrollHeight) return;
+    if (scrollHeight > 485) {
+        $('.chat-container .chat-body')[0].scrollTop = scrollHeight;
+    }
+}

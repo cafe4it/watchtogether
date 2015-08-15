@@ -55,6 +55,11 @@ if (Meteor.isServer) {
 
                 var room = Rooms.findOne({_id : roomId}),
                     user = (this.userId) ? Meteor.user() : RoomsGuest.findOne({_id : userId});
+                /*var msg = sanitizeHtml(msg, {
+                    allowedTags: []
+                });*/
+                var msg = URI.encode(msg);
+                if(!msg || _.isEmpty(msg)) return 'FAILED';
                 if(room && user){
                     RoomMessages.insert({
                         roomId : room._id,
