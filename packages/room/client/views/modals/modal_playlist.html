@@ -1,11 +1,52 @@
 <template name="modal_playlist">
-    <div id="modal_playlist" class="ui small modal">
-        <div class="header">Change your Name</div>
+    <div id="modal_playlist" class="ui small modal modal-top-20">
         <div class="content">
-            <button id="abc">Click Me</button>
+            <div class="ui top attached tabular menu">
+                <a class="item active" data-tab="playlist"><i class="unordered list icon"></i>&nbsp;Playlist</a>
+                <a class="item" data-tab="search"><i class="plus icon"></i>&nbsp;Add Clip</a>
+            </div>
+            {{> modal_playlist_tabs_playlist roomId=roomId}}
+            {{> modal_playlist_tabs_search roomId=roomId}}
         </div>
         <div class="actions">
             <div class="ui cancel button">Close</div>
+        </div>
+    </div>
+</template>
+
+<template name="modal_playlist_tabs_playlist">
+    <div class="ui bottom attached tab segment active" data-tab="playlist">
+        Playlist
+    </div>
+</template>
+
+<template name="modal_playlist_tabs_search">
+    <div id="modal_playlist_tabs_search" class="ui bottom attached tab segment" data-tab="search">
+        <div class="ui right icon fluid input {{isSearching}}">
+            <input type="text" placeholder="Paste url clip (XVIDEOS) & press Enter" class="search-url">
+            <i class="paste icon"></i>
+        </div>
+        <div class="ui divider"></div>
+        {{#if items}}
+        <div class="ui items search-result">
+            {{#each items}}
+                {{> modal_playlist_tabs_search_result_item}}
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+</template>
+
+<template name="modal_playlist_tabs_search_result_item">
+    <div class="item">
+        <div class="ui tiny image">
+            <img src="{{thumbnail}}">
+        </div>
+        <div class="content">
+            <a class="header">{{title}}</a>
+            <div class="meta">
+                <span>Description</span>
+            </div>
         </div>
     </div>
 </template>

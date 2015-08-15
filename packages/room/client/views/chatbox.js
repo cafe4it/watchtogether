@@ -11,8 +11,9 @@ Template.chatbox.onCreated(function () {
             roomSubs = FlowRouter.subsReady("getRoom");
         if (msgSubs && roomSubs) {
             var messages = RoomMessages.find({roomId: roomId}, {sort: {updatedAt: 1}});
+
             messages.observe({
-                added : function(){
+                added: function () {
                     setScroll(self);
                 }
             });
@@ -28,6 +29,7 @@ Template.chatbox.onCreated(function () {
         }
 
     });
+
 });
 
 Template.chatbox.rendered = function () {
@@ -67,7 +69,7 @@ Template.chatbox.events({
 
 function setScroll(t) {
     var t = t || Template.instance();
-    var height = $('.chat-container .chat-body')[0].scrollHeight;
+    var height = ($('.chat-container .chat-body').length > 0) ? $('.chat-container .chat-body')[0].scrollHeight : 485;
     t.chatBodyHeight.set(height);
 }
 

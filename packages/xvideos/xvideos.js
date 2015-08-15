@@ -17,7 +17,7 @@ if(Meteor.isServer){
                             var result = {
                                 videoId : params.id_video,
                                 title : obj.title,
-                                url : tpl({
+                                src : tpl({
                                     flv_url : params.flv_url,
                                     ri : params.ri,
                                     rs : params.rs,
@@ -25,7 +25,8 @@ if(Meteor.isServer){
                                 }),
                                 thumbnail : params.url_bigthumb,
                                 type  : 'video/x-flv',
-                                source : 'XVIDEOS'
+                                source : 'XVIDEOS',
+                                urls : [url]
                             }
 
                             done(null,result);

@@ -11,6 +11,11 @@ Template.room_home.onCreated(function(){
 Template.room_home.rendered = function(){
     $(document).ready(function(){
         $('#modal_playlist')
+            .modal({
+                onShow : function(){
+                    $('#modal_playlist .menu .item').tab();
+                }
+            })
             .modal('attach events', '#btnPlaylist', 'show');
     })
 }

@@ -28,3 +28,16 @@
 .chat-footer{
     margin-top: 10px;
 }
+
+.modal-top-35{
+    top : 35% !important;
+}
+
+.modal-top-20{
+    top : 20% !important;
+}
+
+#modal_playlist_tabs_search .search-result {
+    max-height: 350px;
+    overflow-y: scroll;
+}

@@ -25,6 +25,8 @@ Package.onUse(function (api) {
     api.use('juliancwirko:s-alert',['client']);
     api.use('dburles:collection-helpers',['client','server']);
 
+    api.use('wt:xvideos',['server']);
+
     api.addFiles('lib/000_routes.js',['server','client']);
     api.addFiles('lib/001_schemas.js',['server','client']);
     api.addFiles('server/000_methods.js',['server']);
