@@ -6,17 +6,19 @@ if(Meteor.isServer){
                 var rs = Async.runSync(function(done){
                     var x = new Xray();
                     x(url,{
-                        title : '#main > h2',
+                        title : '#main > h2@text',
+                        duration : '#main > h2 .duration@text',
                         flashvars : '#flash-player-embed@flashvars'
                     })(function(err, obj){
                         if(err) throw new Meteor.Error(err);
                         if(_.has(obj,'flashvars')){
                             var query = decodeURIComponent(obj.flashvars),
                                 params = URI.parseQuery(query),
-                                tpl = _.template('<%=flv_url%>&ri=<%=ri%>&rs=<%=rs%>&h=<%=h%>');
+                                tpl = _.template('<%=flv_url%>&ri=<%=ri%>&rs=<%=rs%>&h=<%=h%>'),
+                                title = obj.title.replace(obj.duration,'').trim()
                             var result = {
                                 videoId : params.id_video,
-                                title : obj.title,
+                                title : title,
                                 src : tpl({
                                     flv_url : params.flv_url,
                                     ri : params.ri,

@@ -28,9 +28,9 @@
         </div>
         <div class="ui divider"></div>
         {{#if items}}
-        <div class="ui items search-result">
+        <div class="ui divided items search-result">
             {{#each items}}
-                {{> modal_playlist_tabs_search_result_item}}
+                {{> modal_playlist_tabs_search_result_item item=item resultItems=items}}
             {{/each}}
         </div>
         {{/if}}
@@ -38,15 +38,24 @@
 </template>
 
 <template name="modal_playlist_tabs_search_result_item">
-    <div class="item">
-        <div class="ui tiny image">
-            <img src="{{thumbnail}}">
-        </div>
-        <div class="content">
-            <a class="header">{{title}}</a>
-            <div class="meta">
-                <span>Description</span>
+    {{#with item}}
+        <div class="item">
+            <div class="ui tiny image middle aligned">
+                <img src="{{thumbnail}}">
+            </div>
+            <div class="content">
+                <div class="header">{{title}}</div>
+                <div class="meta">
+                    <button class="ui compact positive icon button" data-id="{{videoId}}">
+                        <i class="plus icon"></i>
+                        Add to playlist
+                    </button>
+                    <button class="ui compact negative icon button" data-id="{{videoId}}">
+                        <i class="play icon"></i>
+                        Play now
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    {{/with}}
 </template>
