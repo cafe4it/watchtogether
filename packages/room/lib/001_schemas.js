@@ -28,3 +28,13 @@ RoomMessages.helpers({
         return URI.decode(this.message);
     }
 });
+
+Users = Meteor.users;
+
+Users.helpers({
+    isAdminRoom : function (roomId) {
+        var room = Rooms.findOne({_id : roomId});
+        if(!room) return false;
+        return (room.userId === this._id);
+    }
+})

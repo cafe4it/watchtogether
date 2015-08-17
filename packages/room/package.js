@@ -18,6 +18,7 @@ Package.onUse(function (api) {
     api.use('tracker',['client']);
     api.use('random',['server','client']);
     api.use('underscore',['server','client']);
+    api.use('accounts-base',['server','client']);
     api.use('ostrio:cookies',['server','client']);
     api.use('kadira:flow-router',['server','client']);
     api.use('kadira:blaze-layout',['client']);

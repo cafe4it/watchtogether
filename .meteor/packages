@@ -28,3 +28,8 @@ anti:fake
 juliancwirko:s-alert
 dburles:collection-helpers
 djedi:sanitize-html
+http
+meteorhacks:npm
+
+
+npm-container

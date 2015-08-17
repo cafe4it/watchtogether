@@ -16,9 +16,6 @@ Template.modal_playlist_tabs_search.helpers({
     },
     isSearching: function () {
         return (Template.instance().isSearch.get() === false) ? '' : 'loading';
-    },
-    item : function(){
-        return this;
     }
 })
 
@@ -49,33 +46,31 @@ Template.modal_playlist_tabs_search.rendered = function () {
     })
 }
 
-Template.modal_playlist_tabs_search_result_item.rendered = function(){
-    var self = Template.instance();
-    var items = [];
-    $(document).ready(function(){
-        //Add to playlist event
-        $('#modal_playlist_tabs_search .positive.button').on('click', function (e) {
-            e.preventDefault();
-            var item = getItemByIdFromResultItems(e,self);
-            items.push(item);
-            console.log(items);
-        });
+Template.modal_playlist_tabs_search.events({
+    //add to playlist
+    'click #modal_playlist_tabs_search .positive.button' : function(e,t){
+        e.preventDefault();
+        var item = getItemByIdFromResultItems(e,t);
+        if(item){
 
-        //Play now event
-        $('#modal_playlist_tabs_search .negative.button').on('click', function (e) {
-            e.preventDefault();
-            var item = getItemByIdFromResultItems(e,self);
-            console.log(item)
-        });
-    })
-}
+        }
+    },
+    //play now
+    'click #modal_playlist_tabs_search .negative.button' : function(e,t){
+        e.preventDefault();
+        var item = getItemByIdFromResultItems(e,t);
+        if(item){
+
+        }
+    }
+})
 
 function getItemByIdFromResultItems(e,t){
     var self = t;
     if(e.currentTarget){
         var videoId = e.currentTarget.getAttribute('data-id');
         if(videoId){
-            var resultItems = self.data.resultItems;
+            var resultItems = self.resultItems.get();
             var video = _.where(resultItems,{videoId : videoId});
             return (video) ? video : undefined;
         }

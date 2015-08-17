@@ -73,6 +73,17 @@ if (Meteor.isServer) {
             }catch(ex){
                 console.error('method : sendMessage, has error :' + ex)
             }
+        },
+        clearMessages : function (roomId) {
+            try{
+                check(roomId, String);
+                var room = Rooms.findOne({_id : roomId});
+                if(room){
+
+                }
+            }catch(ex){
+                console.error('method : clearMessages, has error(s) :' + ex);
+            }
         }
     })
 }
