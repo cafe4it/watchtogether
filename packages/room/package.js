@@ -36,6 +36,8 @@ Package.onUse(function (api) {
     api.addFiles('client/stylesheets/room.css',['client']);
     api.addFiles('client/views/room_home.html',['client']);
     api.addFiles('client/views/room_home.js',['client']);
+    api.addFiles('client/views/room_player.html',['client']);
+    api.addFiles('client/views/room_player.js',['client']);
     api.addFiles('client/views/modals/modal_playlist.html',['client']);
     api.addFiles('client/views/modals/modal_playlist.js',['client']);
     api.addFiles('client/views/room_menu.html',['client']);

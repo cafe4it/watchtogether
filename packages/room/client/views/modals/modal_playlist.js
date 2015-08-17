@@ -28,11 +28,11 @@ Template.modal_playlist_tabs_search.rendered = function () {
                 if (this.value || !_.isEmpty(this.value)) {
                     var txt = this;
                     self.isSearch.set(true);
-                    Meteor.call('Xvideos_byUrl', this.value, function (err, result) {
+                    Meteor.call('searchAndAddVideoToStore', this.value, function (err, result) {
                         if (result) {
                             self.isSearch.set(false);
                             var items = self.resultItems.get(),
-                                isExists = _.contains(_.pluck(items, 'videoId'), result.videoId);
+                                isExists = _.contains(_.pluck(items, '_id'), result._id);
                             if (!isExists) {
                                 items.unshift(_.extend(result, {roomId : self.data.roomId}));
                                 txt.value = '';
@@ -60,7 +60,22 @@ Template.modal_playlist_tabs_search.events({
         e.preventDefault();
         var item = getItemByIdFromResultItems(e,t);
         if(item){
-
+            Meteor.call('playVideoNow', t.data.roomId, item._id,function(err,rs){
+                if(err) console.log(err);
+                if(rs === 'SUCCESS'){
+                    sAlert.success(item.title +' play now!');
+                    $('#modal_playlist_tabs_search .removeit.button').trigger('click');
+                }
+            })
+        }
+    },
+    //remove from result search items
+    'click #modal_playlist_tabs_search .removeit.button' : function(e,t){
+        e.preventDefault();
+        var item = getItemByIdFromResultItems(e,t);
+        if(item){
+            var items = _.reject(t.resultItems.get(),function(i){ return i._id == item._id});
+            t.resultItems.set(items);
         }
     }
 })
@@ -71,7 +86,7 @@ function getItemByIdFromResultItems(e,t){
         var videoId = e.currentTarget.getAttribute('data-id');
         if(videoId){
             var resultItems = self.resultItems.get();
-            var video = _.where(resultItems,{videoId : videoId});
+            var video = _.findWhere(resultItems,{_id : videoId});
             return (video) ? video : undefined;
         }
     }

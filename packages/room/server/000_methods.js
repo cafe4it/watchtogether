@@ -84,6 +84,56 @@ if (Meteor.isServer) {
             }catch(ex){
                 console.error('method : clearMessages, has error(s) :' + ex);
             }
+        },
+        searchAndAddVideoToStore : function(url){
+            try{
+                check(url, String);
+                var video = VideoStore.findOne({urls : url});
+                if(!video){
+                    var rs = Meteor.call('Xvideos_byUrl',url);
+                    if(rs){
+                        rs = _.extend(rs, {updatedAt : new Date});
+                        var id = VideoStore.insert(rs);
+                        video = VideoStore.findOne({_id : id});
+                    }
+                }
+                return video;
+            }catch(ex){
+                console.error('method : addVideoToStore, has error(s) :' + ex)
+            }
+        },
+        updateDurationOfVideo : function(videoId, duration){
+            try{
+                check(videoId, String);
+                check(duration, Number);
+                var video = VideoStore.findOne({_id : videoId, duration :{$exists : false}});
+                if(video){
+                    VideoStore.update({_id : videoId},{$set :{
+                        duration : duration
+                    }});
+                }
+            }catch(ex){
+                console.error('method : updateDurationOfVideo, has error(s) :' + ex)
+            }
+        },
+        playVideoNow : function(roomId, videoId){
+            try{
+                check(roomId, String);
+                check(videoId, String);
+
+                var room = Rooms.findOne({_id : roomId}),
+                    video = VideoStore.findOne({_id : videoId});
+                if(room && video && room.isOwner()){
+                    VideosPlay.upsert({roomId : room._id},{
+                        roomId : room._id,
+                        videoId : video._id,
+                        playedAt : new Date
+                    });
+                    return 'SUCCESS';
+                }
+            }catch(ex){
+                console.error('method : playVideoNow, has error(s) :' + ex)
+            }
         }
     })
 }

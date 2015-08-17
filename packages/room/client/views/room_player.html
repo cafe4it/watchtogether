@@ -1,0 +1,34 @@
+<template name="room_player">
+    {{#if Template.subscriptionsReady}}
+        <div>
+            {{{video}}}
+        </div>
+    {{else}}
+        <div class="ui segment" style="width: 99.9%;height: 488px">
+            <div class="ui active inverted dimmer">
+                <div class="ui text loader">Loading</div>
+            </div>
+            <p></p>
+        </div>
+    {{/if}}
+</template>
+
+<template name="video">
+    <video id="myVideoPlayer" class="video-js vjs-default-skin"
+           controls preload="true" width="99.9%" height="488"
+           poster="{{thumbnail}}"
+           data-setup='{"controls":true}'>
+        <source src="{{src}}" type='{{type}}' />
+    </video>
+</template>
+
+<template name="video_default">
+    <video id="myVideoPlayer" class="video-js vjs-default-skin"
+           controls preload="auto" width="99.9%" height="488"
+           poster="http://video-js.zencoder.com/oceans-clip.png"
+           data-setup='{"controls":true}'>
+        <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+        <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+        <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+    </video>
+</template>

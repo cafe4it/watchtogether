@@ -32,18 +32,22 @@
             {{#each items}}
                 <div class="item">
                     <div class="ui tiny image middle aligned">
-                        <img src="">
+                        <img src="{{thumbnail}}">
                     </div>
                     <div class="content">
-                        <div class="header"></div>
+                        <div class="header">{{title}}</div>
                         <div class="meta">
-                            <button class="ui compact positive icon button" data-id="{{videoId}}">
+                            <button class="ui compact positive icon button" data-id="{{_id}}">
                                 <i class="plus icon"></i>
                                 Add to playlist
                             </button>
-                            <button class="ui compact negative icon button" data-id="{{videoId}}">
+                            <button class="ui compact negative icon button" data-id="{{_id}}">
                                 <i class="play icon"></i>
                                 Play now
+                            </button>
+                            <button class="ui compact removeit icon button" data-id="{{_id}}">
+                                <i class="remove icon"></i>
+                                Remove
                             </button>
                         </div>
                     </div>
