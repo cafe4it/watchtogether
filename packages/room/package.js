@@ -25,6 +25,8 @@ Package.onUse(function (api) {
     api.use('arillo:flow-router-helpers',['client']);
     api.use('juliancwirko:s-alert',['client']);
     api.use('dburles:collection-helpers',['client','server']);
+    api.use('momentjs:moment',['client','server']);
+    api.use('raix:eventemitter',['client','server']);
 
     api.use('wt:xvideos',['server']);
 
@@ -33,6 +35,7 @@ Package.onUse(function (api) {
     api.addFiles('server/000_methods.js',['server']);
     api.addFiles('server/001_security.js',['server']);
     api.addFiles('server/001_publications.js',['server']);
+    api.addFiles('client/000__.js',['client']);
     api.addFiles('client/stylesheets/room.css',['client']);
     api.addFiles('client/views/room_home.html',['client']);
     api.addFiles('client/views/room_home.js',['client']);

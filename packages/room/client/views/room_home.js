@@ -1,3 +1,5 @@
+//var listener;
+
 Template.room_home.onCreated(function(){
     var self = this;
     self.autorun(function(c){
@@ -5,8 +7,12 @@ Template.room_home.onCreated(function(){
         if (!userId) {
             FlowRouter.go(FlowRouter.path('room_create', {}, {returnPath: FlowRouter.getParam('id')}))
         }
-    })
+    });
 });
+
+Template.room_home.created = function(){
+
+}
 
 Template.room_home.rendered = function(){
     $(document).ready(function(){
@@ -27,3 +33,7 @@ Template.room_home.helpers({
         }
     }
 })
+
+Template.room_home.destroyed = function(){
+    //Event.removeListener('playerEvents', listener);
+}

@@ -1,23 +1,22 @@
 <template name="room_player">
-    {{#if Template.subscriptionsReady}}
-        <div>
-            {{{video}}}
-        </div>
-    {{else}}
-        <div class="ui segment" style="width: 99.9%;height: 488px">
-            <div class="ui active inverted dimmer">
-                <div class="ui text loader">Loading</div>
+    <div id="player" style="{{isReady}}">
+
+    </div>
+    <div style="{{isNotReady}}">
+        <div class="ui segment" style="width: 99.9%;height: 488px;">
+            <div class="ui active dimmer">
+                <div class="ui indeterminate text loader">Preparing Video...</div>
             </div>
             <p></p>
         </div>
-    {{/if}}
+    </div>
 </template>
 
 <template name="video">
-    <video id="myVideoPlayer" class="video-js vjs-default-skin"
+    <video id="myVideoPlayer_{{_id}}" class="video-js vjs-default-skin"
            controls preload="true" width="99.9%" height="488"
            poster="{{thumbnail}}"
-           data-setup='{"controls":true}'>
+           autoplay>
         <source src="{{src}}" type='{{type}}' />
     </video>
 </template>
@@ -25,8 +24,7 @@
 <template name="video_default">
     <video id="myVideoPlayer" class="video-js vjs-default-skin"
            controls preload="auto" width="99.9%" height="488"
-           poster="http://video-js.zencoder.com/oceans-clip.png"
-           data-setup='{"controls":true}'>
+           poster="http://video-js.zencoder.com/oceans-clip.png">
         <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
         <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
         <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />

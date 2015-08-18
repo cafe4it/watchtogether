@@ -127,13 +127,62 @@ if (Meteor.isServer) {
                     VideosPlay.upsert({roomId : room._id},{
                         roomId : room._id,
                         videoId : video._id,
-                        playedAt : new Date
+                        updatedAt : new Date,
+                        playedAt : null
                     });
                     return 'SUCCESS';
                 }
             }catch(ex){
                 console.error('method : playVideoNow, has error(s) :' + ex)
             }
+        },
+        PlayNowUpdateTime : function(roomId, videoId, timer){
+            try{
+                check(roomId, String);
+                check(videoId, String);
+                check(timer, Date);
+                var room = Rooms.findOne({_id : roomId}),
+                    video = VideoStore.findOne({_id : videoId});
+                if(room && video){
+                    VideosPlay.update({roomId : room._id, videoId : video._id},{
+                        $set :{
+                            playedAt : timer
+                        }
+                    });
+                    return 'SUCCESS';
+                }
+            }catch(ex){
+                console.error('method : PlayNowUpdateTime, has error(s) :' + ex)
+            }
+        },
+        removePlayNow : function(roomId, videoId){
+            try{
+                check(roomId, String);
+                check(videoId, String);
+                var room = Rooms.findOne({_id : roomId}),
+                    video = VideoStore.findOne({_id : videoId});
+                if(room && video){
+                    VideosPlay.remove({roomId : room._id, videoId : video._id});
+                    return 'SUCCESS'
+                }
+            }catch(ex){
+                console.error('method : removePlayNow, has error(s) :' + ex)
+            }
+        }
+    })
+
+    Meteor.methods({
+        addVideoExampleToStore : function(video){
+            var video = _.extend(video, {updatedAt : new Date});
+            var id = VideoStore.insert(video);
+            return id;
+        },
+        addVideoPlayNowExample : function(roomId, videoId){
+            VideosPlay.upsert({roomId : roomId},{$set :{
+                roomId : roomId,
+                videoId : videoId,
+                updatedAt : new Date
+            }})
         }
     })
 }

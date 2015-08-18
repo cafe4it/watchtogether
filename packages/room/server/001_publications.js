@@ -21,6 +21,6 @@ if (Meteor.isServer) {
     })
 
     Meteor.publish('video_byId',function(videoId){
-        return VideoStore.find({_id : videoId},{reactive: false});
+        return VideoStore.find({_id : videoId});
     })
 }

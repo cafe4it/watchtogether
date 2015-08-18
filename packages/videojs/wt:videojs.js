@@ -14,23 +14,26 @@ _.each(styles, function(href){
     head.appendChild(style);
 });
 
-var scripts = [
-    'http://vjs.zencdn.net/4.12/video.js',
-    '/videojs-plugins/videojs.caption.min.js'
-]
+
 
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.src = scripts[0];
+script.src = 'http://vjs.zencdn.net/4.12/video.js';
 
 head.appendChild(script);
 
 Meteor.setTimeout(function(){
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = scripts[1];
+    var scripts = [
+        '/videojs-plugins/videojs.caption.min.js',
+        '/videojs-plugins/videojs.disableProgress.js'
+    ]
+    _.each(scripts,function(s){
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = s;
+        head.appendChild(script);
+    })
 
-    head.appendChild(script);
 },300)
 
 /*

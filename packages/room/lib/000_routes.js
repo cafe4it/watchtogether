@@ -13,6 +13,7 @@ roomRoutes.route('/:id', {
     name: 'room_home',
     subscriptions : function(p, q){
         this.register('getRoom', Meteor.subscribe('room_byId', p.id));
+        //this.register('getVideoPlayNow', Meteor.subscribe('video_play_now', p.id));
         this.register('getMessages', Meteor.subscribe('messages_byRoom', p.id));
     },
     action: function (q, p) {
