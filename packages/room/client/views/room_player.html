@@ -1,6 +1,5 @@
 <template name="room_player">
     <div id="player" style="{{isReady}}">
-
     </div>
     <div style="{{isNotReady}}">
         <div class="ui segment" style="width: 99.9%;height: 488px;">
@@ -13,7 +12,7 @@
 </template>
 
 <template name="video">
-    <video id="myVideoPlayer_{{_id}}" class="video-js vjs-default-skin"
+    <video id="{{_id}}" class="video-js vjs-default-skin"
            controls preload="true" width="99.9%" height="488"
            poster="{{thumbnail}}"
            autoplay>
@@ -23,7 +22,7 @@
 
 <template name="video_default">
     <video id="myVideoPlayer" class="video-js vjs-default-skin"
-           controls preload="auto" width="99.9%" height="488"
+           controls preload="false" width="99.9%" height="488"
            poster="http://video-js.zencoder.com/oceans-clip.png">
         <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
         <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />

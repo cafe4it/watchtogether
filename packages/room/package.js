@@ -13,6 +13,8 @@ Package.describe({
 Package.onUse(function (api) {
     api.versionsFrom('1.1.0.3');
     api.use('anti:fake',['server']);
+    api.use('http',['server']);
+    api.use('meteorhacks:async',['server']);
     api.use('djedi:sanitize-html',['server']);
     api.use('templating',['client']);
     api.use('tracker',['client']);
@@ -25,7 +27,7 @@ Package.onUse(function (api) {
     api.use('arillo:flow-router-helpers',['client']);
     api.use('juliancwirko:s-alert',['client']);
     api.use('dburles:collection-helpers',['client','server']);
-    api.use('momentjs:moment',['client','server']);
+    //api.use('momentjs:moment',['client','server']);
     api.use('raix:eventemitter',['client','server']);
 
     api.use('wt:xvideos',['server']);

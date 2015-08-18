@@ -124,11 +124,11 @@ if (Meteor.isServer) {
                 var room = Rooms.findOne({_id : roomId}),
                     video = VideoStore.findOne({_id : videoId});
                 if(room && video && room.isOwner()){
-                    VideosPlay.upsert({roomId : room._id},{
+                    VideosPlay.remove({roomId : room._id});
+                    VideosPlay.insert({
                         roomId : room._id,
                         videoId : video._id,
-                        updatedAt : new Date,
-                        playedAt : null
+                        updatedAt : new Date
                     });
                     return 'SUCCESS';
                 }

@@ -10,10 +10,6 @@ Template.room_home.onCreated(function(){
     });
 });
 
-Template.room_home.created = function(){
-
-}
-
 Template.room_home.rendered = function(){
     $(document).ready(function(){
         $('#modal_playlist')
