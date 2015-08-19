@@ -1,4 +1,14 @@
 if (Meteor.isServer) {
+    playerStream = new Meteor.Stream('player');
+
+    playerStream.permissions.write(function() {
+        return true;
+    });
+
+    playerStream.permissions.read(function() {
+        return true;
+    });
+
     Meteor.methods({
         'createRoom': function () {
             try {

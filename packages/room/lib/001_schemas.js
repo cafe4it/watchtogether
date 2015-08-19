@@ -5,12 +5,12 @@ VideoStore = new Meteor.Collection('video_store');
 VideosPlay = new Meteor.Collection('videos_play');
 
 Rooms.helpers({
-    isOwner : function(){
-        var user = Meteor.users.findOne({_id : this.userId});
+    isOwner : function(userId){
+        var user = Meteor.users.findOne({_id : userId});
         if(user){
             return user._id === this.userId;
         }else{
-            user = RoomsGuest.findOne({_id : this.userId});
+            user = RoomsGuest.findOne({_id : userId});
             if(user){
                 return user._id === this.userId;
             }

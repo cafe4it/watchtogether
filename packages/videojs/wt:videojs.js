@@ -18,7 +18,7 @@ _.each(styles, function(href){
 
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.src = 'http://vjs.zencdn.net/4.12/video.js';
+script.src = '/video.js';
 
 head.appendChild(script);
 

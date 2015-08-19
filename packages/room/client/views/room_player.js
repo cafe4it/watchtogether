@@ -1,10 +1,17 @@
 Template.room_player.onCreated(function () {
     var self = this;
     self.videoPlayNow = new ReactiveVar(undefined);
-    self.renderHTML = new ReactiveVar(undefined);
+    //self.renderHTML = new ReactiveVar(Blaze.toHTML(Template.video_default));
     self.showLoading = new ReactiveVar(true);
+    self.isOwnerRoom = new ReactiveVar(false);
+
     self.autorun(function () {
-        var roomId = self.data.roomId || FlowRouter.getParam('id');
+        var roomId = self.data.roomId || FlowRouter.getParam('id'),
+            userId = Meteor.cookie.get('tubechat_userId') || Meteor.userId();
+
+        var subsGuest = self.subscribe('guest_byParams', {_id : userId}),
+            subsRoom = self.subscribe('room_byId',roomId);
+
         if (self.subscribe('video_play_now', roomId).ready()) {
             var videoPlayNow = VideosPlay.findOne({roomId: roomId});
             if (videoPlayNow) {
@@ -12,94 +19,120 @@ Template.room_player.onCreated(function () {
                     self.videoPlayNow.set(videoPlayNow);
                     var videoNow = self.videoPlayNow.get().getVideo();
                     self.showLoading.set((!videoNow));
-                    self.renderHTML.set(Blaze.toHTMLWithData(Template.video, videoNow));
+                    //window.loadMediaPlayer(videoNow);
+                    //self.renderHTML.set(Blaze.toHTMLWithData(Template.video, _.extend(videoNow, {roomId : roomId})));
+                }
+
+                if(subsRoom.ready() && subsGuest.ready()){
+                    var room = Rooms.findOne({_id : roomId});
+                    self.isOwnerRoom.set(room.isOwner(userId));
                 }
             }
-        }else{
-            self.renderHTML.set(undefined);
-            self.videoPlayNow.set(undefined);
-            self.showLoading.set(true);
-            if(player) player.dispose();
-            $('#player').html(Blaze.toHTML(Template.video_default));
         }
     })
 })
-var player;
+
 Template.room_player.rendered = function () {
     var self = Template.instance();
     $(document).ready(function () {
-        self.autorun(function (c) {
-            if (player) {
-                player.dispose();
+        self.autorun(function(c){
+            var videoPlayNow = self.videoPlayNow.get(),
+                isOwner = self.isOwnerRoom.get()
+
+            if(videoPlayNow && isOwner){
+                var data = _.extend(videoPlayNow.getVideo(), {isOwner : isOwner});
+                window.loadMediaPlayer(data);
+
+                //c.stop();
+            }
+        })
+
+        /*self.autorun(function (c) {
+            if (window.player) {
+                window.player.dispose();
             }
             var videoPlayNow = self.videoPlayNow.get(),
-                HTML = self.renderHTML.get();
-            if ((videoPlayNow !== undefined) && (HTML !== undefined)) {
+                HTML = self.renderHTML.get(),
+                isOwner = self.isOwnerRoom.get();
+            if ((videoPlayNow !== undefined) && (HTML !== undefined) && (isOwner !== undefined)) {
                 $('#player').html(HTML);
-                videojs(videoPlayNow.videoId, {}).ready(function () {
-                    player = this;
+                videojs('myVideoPlayer', {}).ready(function () {
+                    window.player = this;
+                    window.videoPlayNow = videoPlayNow;
 
-                    player.disableProgress({
-                        autoDisable: true
-                    });
 
-                    player.on('loadstart','waiting','progress',function(){
+                    this.on('loadstart', 'waiting', 'progress', function () {
                         self.showLoading.set(true);
                     });
 
-                    player.on('loadedmetadata','loadeddata','loadedalldata', function(){
+                    this.on('loadedmetadata', 'loadeddata', 'loadedalldata', function () {
                         self.showLoading.set(false);
                     })
 
-                    player.on('error', function (err) {
+                    this.on('error', function (err) {
                         if (err) console.log(err);
                     });
 
-                    player.on('durationchange',function(){
-                        if(videoPlayNow !== undefined && player !== undefined){
+                    this.on('durationchange', function () {
+                        if (videoPlayNow !== undefined && this !== undefined) {
                             var videoNow = videoPlayNow.getVideo();
-                            if(!videoNow.duration){
-                                var duration = Math.floor(+player.duration())+1;
-                                Meteor.call('updateDurationOfVideo', videoNow._id ,duration);
+                            if (!videoNow.duration) {
+                                var duration = Math.floor(+this.duration()) + 1;
+                                Meteor.call('updateDurationOfVideo', videoNow._id, duration);
                             }
                         }
                     });
 
-                    player.on('firstplay',function(){
-                        if(!videoPlayNow.playedAt){
-                            Meteor.call('PlayNowUpdateTime', videoPlayNow.roomId, videoPlayNow.videoId, new Date);
+                    player.on('seeked', function () {
+                        $('.vjs-waiting').removeClass('vjs-waiting');
+                        $('.vjs-loading-spinner').removeClass('vjs-loading-spinner');
+                    });
+
+                    this.on('pause', function () {
+                        if (this.pause()) this.play();
+                    });
+
+                    this.on('play',function(){
+                        if(isOwner) {
+                            var data = {
+                                videoPlayNow : self.videoPlayNow.get(),
+                                currentTime : window.player.currentTime()
+                            }
+                            playerStream.emit('updatePlayer', data);
                         }
                     })
 
-                    player.on('play', function () {
-                        if(videoPlayNow !== undefined){
-                            var p = player;
-                            var timeout = Meteor.setTimeout(function(){
-                                var currentTime = moment().diff(videoPlayNow.playedAt, 'seconds'),
-                                    duration = (videoPlayNow.getVideo()) ? videoPlayNow.getVideo().duration : 0;
-                                (currentTime < duration) ? p.currentTime(currentTime) : p.currentTime(duration);
-                                Meteor.clearTimeout(timeout);
-                            },1000)
-                        }
-                    });
-
-                    player.on('pause', function () {
-                        if (player.pause()) player.play();
-                    });
-
-                    player.on('ended', function(){
-                        Meteor.call('removePlayNow', videoPlayNow.roomId, videoPlayNow.videoId,function(err, rs){
-                            if(rs === 'SUCCESS'){
-                                window.location.href = FlowRouter.path('room_home',{id : self.data.roomId});
+                    this.on('ended', function () {
+                        Meteor.call('removePlayNow', videoPlayNow.roomId, videoPlayNow.videoId, function (err, rs) {
+                            if (rs === 'SUCCESS') {
+                                window.location.href = FlowRouter.path('room_home', {id: self.data.roomId});
                             }
                         });
                     })
+
+                    mediaPlayerUpdate(self);
                 })
-            }else{
+            } else {
 
             }
-        })
+        })*/
     })
+}
+
+var interval ;
+function mediaPlayerUpdate(self) {
+    var isOwner = self.isOwnerRoom.get();
+    if(isOwner){
+        if(interval) Meteor.clearInterval(interval);
+
+        interval = Meteor.setInterval(function(){
+            var data = {
+                videoPlayNow : self.videoPlayNow.get(),
+                currentTime : window.player.currentTime()
+            }
+            playerStream.emit('updatePlayer',data);
+        },5000)
+    }
 }
 
 Template.room_player.helpers({
@@ -110,3 +143,10 @@ Template.room_player.helpers({
         return (Template.instance().showLoading.get()) ? '' : 'display : none';
     }
 });
+
+Template.room_player.destroyed = function(){
+    if(window.PLAYER || window.PLAYER.player){
+        window.PLAYER.player.dispose();
+        window.PLAYER = undefined;
+    }
+}

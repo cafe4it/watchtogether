@@ -1,5 +1,6 @@
 <template name="room_player">
     <div id="player" style="{{isReady}}">
+        {{> video_default}}
     </div>
     <div style="{{isNotReady}}">
         <div class="ui segment" style="width: 99.9%;height: 488px;">
@@ -12,7 +13,7 @@
 </template>
 
 <template name="video">
-    <video id="{{_id}}" class="video-js vjs-default-skin"
+    <video id="myVideoPlayer" class="video-js vjs-default-skin"
            controls preload="true" width="99.9%" height="488"
            poster="{{thumbnail}}"
            autoplay>

@@ -2,6 +2,7 @@
 
 Template.room_home.onCreated(function(){
     var self = this;
+    //self.Room = new ReactiveVar();
     self.autorun(function(c){
         var userId = Meteor.cookie.get('tubechat_userId') || Meteor.userId();
         if (!userId) {
@@ -31,5 +32,5 @@ Template.room_home.helpers({
 })
 
 Template.room_home.destroyed = function(){
-    //Event.removeListener('playerEvents', listener);
+    //window.PLAYER = undefined;
 }
