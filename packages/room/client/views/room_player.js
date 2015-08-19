@@ -15,6 +15,7 @@ Template.room_player.onCreated(function () {
         if (self.subscribe('video_play_now', roomId).ready()) {
             var videoPlayNow = VideosPlay.findOne({roomId: roomId});
             if (videoPlayNow) {
+
                 if (self.subscribe('video_byId', videoPlayNow.videoId).ready()) {
                     self.videoPlayNow.set(videoPlayNow);
                     var videoNow = self.videoPlayNow.get().getVideo();

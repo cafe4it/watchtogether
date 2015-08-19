@@ -30,11 +30,20 @@ if(Meteor.isServer){
                                 source : 'XVIDEOS',
                                 urls : [url]
                             }
-
                             done(null,result);
                         }
                     })
-                })
+                });
+                var result = rs.result;
+                if(result.src){
+                    rs = Async.runSync(function(done){
+                        ffProbe(result.src, function(err, probeData){
+                            var duration = (probeData.format.duration) ? Math.floor(+probeData.format.duration) : -1;
+                            (duration > 0 ) ? done(null, _.extend(result, {duration : duration-5})) : done(null, result);
+                        })
+                    });
+                    return rs.result;
+                }
                 return rs.result;
             }catch(ex){
                 console.error(ex);

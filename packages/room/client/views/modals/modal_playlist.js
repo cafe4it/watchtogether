@@ -60,6 +60,7 @@ Template.modal_playlist_tabs_search.events({
         e.preventDefault();
         var item = getItemByIdFromResultItems(e,t);
         if(item){
+            console.log(item)
             Meteor.call('playVideoNow', t.data.roomId, item._id,function(err,rs){
                 if(err) console.log(err);
                 if(rs === 'SUCCESS'){

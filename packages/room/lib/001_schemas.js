@@ -6,15 +6,19 @@ VideosPlay = new Meteor.Collection('videos_play');
 
 Rooms.helpers({
     isOwner : function(userId){
+        var userId = userId || Meteor.userId() || '';
         var user = Meteor.users.findOne({_id : userId});
+        var result = false;
         if(user){
-            return user._id === this.userId;
+            result = (user._id === this.userId);
         }else{
+            userId = userId || Meteor.cookie.get('tubechat_userId') || '';
             user = RoomsGuest.findOne({_id : userId});
             if(user){
-                return user._id === this.userId;
+                result = (user._id === this.userId);
             }
         }
+        return result;
     }
 })
 

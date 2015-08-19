@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "node-ffprobe": {
+      "version": "1.2.2"
+    }
+  }
+}

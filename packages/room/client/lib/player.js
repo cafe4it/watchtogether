@@ -140,6 +140,10 @@ function waitUntilDefined(obj, key, fn) {
                                 //return sendVideoUpdate();
                             }
                         });
+
+                        _this.player.on('durationchange',function(){
+                            console.log('duration:',_this.player.duration());
+                        })
                         return _this.player.on('seeked', function () {
                             return $('.vjs-waiting').removeClass('vjs-waiting');
                         });

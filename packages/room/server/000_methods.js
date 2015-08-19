@@ -133,6 +133,7 @@ if (Meteor.isServer) {
 
                 var room = Rooms.findOne({_id : roomId}),
                     video = VideoStore.findOne({_id : videoId});
+                console.log(room.isOwner())
                 if(room && video && room.isOwner()){
                     VideosPlay.remove({roomId : room._id});
                     VideosPlay.insert({
@@ -144,6 +145,18 @@ if (Meteor.isServer) {
                 }
             }catch(ex){
                 console.error('method : playVideoNow, has error(s) :' + ex)
+            }
+        },
+        getCurrentVideoPlaying : function(roomId){
+            try{
+                check(roomId, String);
+                var vp = VideosPlay.findOne({roomId : roomId});
+                if(vp){
+                    var video = VideoStore.findOne({_id : vp.videoId});
+                    return (video) ? video : undefined;
+                }
+            }catch(ex){
+                console.error('method : getCurrentVideo, has error(s) :' + ex)
             }
         },
         PlayNowUpdateTime : function(roomId, videoId, timer){

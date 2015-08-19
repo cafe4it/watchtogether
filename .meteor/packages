@@ -31,3 +31,4 @@ djedi:sanitize-html
 http
 momentjs:moment
 lepozepo:streams
+wt:node-ffprobe

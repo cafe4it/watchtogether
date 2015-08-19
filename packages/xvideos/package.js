@@ -14,6 +14,7 @@ Package.onUse(function (api) {
     api.versionsFrom('1.1.0.3');
     api.use('wt:x-ray',['server']);
     api.use('wt:uri-js',['server']);
+    api.use('wt:node-ffprobe',['server']);
     api.use('underscore',['server']);
     api.use('meteorhacks:async',['server']);
     api.addFiles('xvideos.js', ['server']);
