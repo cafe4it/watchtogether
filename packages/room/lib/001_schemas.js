@@ -6,17 +6,11 @@ VideosPlay = new Meteor.Collection('videos_play');
 
 Rooms.helpers({
     isOwner : function(userId){
-        var userId = userId || Meteor.userId() || '';
+        var userId = userId || Meteor.userId() ||Meteor.cookie.get('tubechat_userId') || '';
         var user = Meteor.users.findOne({_id : userId});
         var result = false;
         if(user){
             result = (user._id === this.userId);
-        }else{
-            userId = userId || Meteor.cookie.get('tubechat_userId') || '';
-            user = RoomsGuest.findOne({_id : userId});
-            if(user){
-                result = (user._id === this.userId);
-            }
         }
         return result;
     }
@@ -31,17 +25,7 @@ RoomMessages.helpers({
                 fullName : user.profile.fullName,
                 isUser : true,
                 isOwner : (user._id === room.userId),
-                color : (user._id === room.userId) ? 'red' : 'green'
-            }
-        }else{
-            user = RoomsGuest.findOne({_id : this.userId});
-            if(user){
-                return {
-                    fullName : user.fullName,
-                    isUser : false,
-                    isOwner : (user._id === room.userId),
-                    color : (user._id === room.userId) ? 'red' : 'grey'
-                }
+                color : (user._id === room.userId) ? 'red' : (user.isGuest()) ? 'grey' : 'green'
             }
         }
     },
@@ -57,6 +41,12 @@ Users.helpers({
         var room = Rooms.findOne({_id : roomId});
         if(!room) return false;
         return (room.userId === this._id);
+    },
+    getFullName : function(){
+        return this.profile.fullName
+    },
+    isGuest : function(){
+        return Roles.userIsInRole(this._id, ['guest']);
     }
 });
 

@@ -12,8 +12,6 @@ roomRoutes.route('/create', {
 roomRoutes.route('/:id', {
     name: 'room_home',
     subscriptions : function(p, q){
-        //var userId = Meteor.cookie.get('tubechat_userId') || Meteor.userId();
-        //this.register('getGuest', Meteor.subscribe('guest_byParams', {_id : userId}));
         this.register('getRoom', Meteor.subscribe('room_byId', p.id));
         this.register('getMessages', Meteor.subscribe('messages_byRoom', p.id));
 

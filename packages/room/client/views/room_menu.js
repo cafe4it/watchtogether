@@ -8,14 +8,6 @@ Template.room_menu.onCreated(function () {
                 fullName: Meteor.user().profile.fullName
             });
         }
-        if (!self.user.get()) {
-            var guestId = Meteor.cookie.get('tubechat_userId');
-            var guestSubs = self.subscribe('guest_byId', guestId);
-            if (guestSubs.ready()) {
-                var guest = RoomsGuest.findOne({_id: guestId});
-                self.user.set(guest);
-            }
-        }
     })
 })
 
@@ -33,9 +25,8 @@ Template.room_menu.events({
             .modal({
                 onApprove: function () {
                     var txtFullName = $('#modal_changeYourName .txtFullName').val();
-                    if (!Meteor.userId()) {
-                        var guest = template.user.get();
-                        Meteor.call('changeGuestName', guest._id, txtFullName, function (err, rs) {
+                    if (Meteor.userId()) {
+                        Meteor.call('changeGuestName', Meteor.userId(), txtFullName, function (err, rs) {
                             if(rs === 'SUCCESS'){
                                 sAlert.success("Change your Name success!");
                             }

@@ -4,7 +4,13 @@
             Temporary Room
         </div>
         <div class="right menu">
-            <a class="item" id="btnChangeYourName"><i class="write icon"></i>&nbsp;Change your Name</a>
+            <a class="item" id="btnChangeYourName">
+                {{#if currentUser}}
+                    <i class="write icon"></i>&nbsp;{{currentUser.getFullName}}
+                {{else}}
+                <i class="write icon"></i>&nbsp;Change your Name
+                {{/if}}
+            </a>
             <a class="item" id="btnInviteFriends"><i class="share alternate square icon"></i>&nbsp;Invite Friends</a>
             <a class="item" id="btnRoomSettings"><i class="setting icon"></i>&nbsp;Room Settings</a>
         </div>

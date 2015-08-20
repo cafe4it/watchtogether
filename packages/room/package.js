@@ -15,6 +15,7 @@ Package.onUse(function (api) {
     api.use('anti:fake',['server']);
     api.use('http',['server']);
     api.use('meteorhacks:async',['server']);
+    api.use('wt:accounts',['server']);
     api.use('djedi:sanitize-html',['server']);
     api.use('templating',['client']);
     api.use('tracker',['client']);

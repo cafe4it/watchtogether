@@ -30,7 +30,3 @@ Template.room_home.helpers({
         }
     }
 })
-
-Template.room_home.destroyed = function(){
-    //window.PLAYER = undefined;
-}

@@ -11,10 +11,15 @@ Template.room_create.onCreated(function () {
                 FlowRouter.go('room_home', {id: room._id});
             } else {
                 Meteor.call('createRoom', function (err, rs) {
-                    Meteor.cookie.set('tubechat_roomId', rs.roomId);
-                    Meteor.cookie.set('tubechat_userId', rs.userId)
-                    var path = FlowRouter.path('room_home', {id: (!self.returnPath.get()) ? rs.roomId : self.returnPath.get()});
-                    window.location.href = path;
+                    if(err) console.error(err);
+                    var result = rs;
+                    Meteor.cookie.set('tubechat_roomId', result.roomId);
+                    Meteor.cookie.set('tubechat_userId' , result.user._id);
+                    Meteor.loginWithPassword(result.user.email, result.user.email, function(err){
+                        var path = FlowRouter.path('room_home', {id: (!self.returnPath.get()) ? result.roomId : self.returnPath.get()});
+                        console.log(path);
+                        window.location.href = path;
+                    })
                 })
             }
 

@@ -13,15 +13,16 @@ if (Meteor.isServer) {
         'createRoom': function () {
             try {
                 Meteor._sleepForMs(2000);
-                var userId = Meteor.call('createGuestUser');
+                var guest = Meteor.call('autoCreateGuestUser');
                 var roomId = Rooms.insert({
                     name : 'Temporary Room',
-                    userId: userId,
+                    userId: guest._id,
                     updatedAt: new Date
                 });
+                //console.log(guest);
                 return {
                     roomId: roomId,
-                    userId: userId
+                    user : guest
                 };
             } catch (ex) {
                 console.error(ex)
@@ -46,10 +47,9 @@ if (Meteor.isServer) {
                 check(guestId, String);
                 check(fullName, String);
 
-                RoomsGuest.update({_id: guestId}, {
+                Meteor.users.update({_id: guestId}, {
                     $set: {
-                        fullName: fullName,
-                        updatedAt: new Date
+                        'profile.fullName' : fullName
                     }
                 })
                 return 'SUCCESS';
@@ -65,10 +65,10 @@ if (Meteor.isServer) {
 
                 var room = Rooms.findOne({_id : roomId}),
                     user = (this.userId) ? Meteor.user() : RoomsGuest.findOne({_id : userId});
-                /*var msg = sanitizeHtml(msg, {
+                var msg = sanitizeHtml(msg, {
                     allowedTags: []
-                });*/
-                var msg = URI.encode(msg);
+                });
+                //var msg = URI.encode(msg);
                 if(!msg || _.isEmpty(msg)) return 'FAILED';
                 if(room && user){
                     RoomMessages.insert({

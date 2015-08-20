@@ -25,6 +25,16 @@
     height: 485px;
 }
 
+.chat-body .message-entry{
+    line-height: 1.25 !important;
+    margin-right: 5px !important;
+    width: 100% !important;
+}
+
+.chat-body .content{
+    width: 100% !important;
+}
+
 .chat-footer{
     margin-top: 10px;
 }

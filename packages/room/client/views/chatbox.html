@@ -27,11 +27,11 @@
 <template name="chat_log_msg">
     <div class="event">
         <div class="content">
-            <div class="summary">
+            <div class="summary message-entry">
                 {{#if getUser.isUser}}
                 <a href="#{{userId}}"><a class="ui {{getUser.color}} empty circular label"></a> {{getUser.fullName}}:</a>&nbsp;{{message}}
                 {{else}}
-                <a><a class="ui {{getUser.color}} empty circular label"></a> {{getUser.fullName}}:</a>&nbsp;{{decodeMessage}}
+                <a><a class="ui {{getUser.color}} empty circular label"></a> {{getUser.fullName}}:</a>&nbsp;{{message}}
                 {{/if}}
             </div>
         </div>
